@@ -16,7 +16,7 @@ origins = [
     "http://localhost:8080/",
     "https://localhost.tiangolo.com/",
     "http://127.0.0.1:5500/",
-    "https://wimadriaensen.github.io/"  # NIET VERGETEN OM HIER OOK DE LINK VAN UW hosted front-end ni bij te zetten!
+    "https://wimadriaensen.github.io/"
 ]
 
 app.add_middleware(
