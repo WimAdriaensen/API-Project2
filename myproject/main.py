@@ -76,5 +76,5 @@ async def show_maker():
 async def create_course(course: Course):
     courses_list.append(course)
     courses_dict = courses_list
-    return courses_dict
+    return course
 
