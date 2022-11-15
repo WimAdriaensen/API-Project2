@@ -6,6 +6,7 @@ import requests
 from fastapi.middleware.cors import CORSMiddleware
 
 class Course(BaseModel):
+    id: int
     name_course: str
     lecturer: str
 
@@ -31,23 +32,28 @@ app.add_middleware(
 
 
 course_api = {
+    "id": 1,
     "name_course": "API Development",
     "lecturer": "Michiel Verboven"
 }
 
 course_iot = {
+    "id": 2,
     "name_course": "IoT Advanced",
     "lecturer": "Stef Van Wolputte"
 }
 
-courses = {}
-courses[0] = course_api
-courses[1] = course_iot
+courses_dict = {}
+courses_list = []
+
+courses_list.append(course_api)
+courses_list.append(course_iot)
+courses_dict = courses_list
 
 
 @app.get("/courses")
 async def show_courses():
-    return courses
+    return courses_dict
 
 
 @app.get("/hello/{name}")
@@ -68,7 +74,7 @@ async def show_maker():
 
 @app.post("/courses")
 async def create_course(course: Course):
-    new_key = len(courses)
-    courses[new_key]= course
-    return courses[new_key]
+    courses_list.append(course)
+    courses_dict = courses_list
+    return courses_dict
 
