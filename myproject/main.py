@@ -5,11 +5,13 @@ from typing import Union  # Dit moet ik gebruiken omdat ik anders de "None | Non
 import requests
 from fastapi.middleware.cors import CORSMiddleware
 
+
 class Course(BaseModel):
     id: int
     name_course: str
     lecturer: str
     it_class: str
+
 
 app = FastAPI()
 
@@ -29,9 +31,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-
 
 course_api = {
     "id": 1,
@@ -95,8 +94,7 @@ async def show_courses():
 @app.get("/courses/{it_class}")
 async def get_courses(it_class: str):
     hulp_list = []
-    get_dict = {}
-    for course in courses_list:
+    for course in courses_dict:
         if course["it_class"] == it_class.upper():
             hulp_list.append(course)
     get_dict = hulp_list
@@ -114,9 +112,11 @@ async def show_maker():
     response_dict["repository"] = response.json()["html_url"]
     return response_dict
 
+
 @app.post("/courses")
 async def create_course(course: Course):
-    courses_list.append(course)
+    new_course = course.dict()
+    courses_list.append(new_course)
+    print(courses_list)
     courses_dict = courses_list
     return course
-
