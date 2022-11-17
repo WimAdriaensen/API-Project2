@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
-from typing import Union  # Dit moet ik gebruiken omdat ik anders de "None | Nonen" niet kan gebruiken
-# Deze wordt vervangen door "Union[str, None] = None"
+from typing import Union  # Dit moet ik gebruiken omdat ik anders de "None | None" niet kan gebruiken
+                                # Deze wordt vervangen door "Union[str, None] = None"
 import requests
 from fastapi.middleware.cors import CORSMiddleware
 
