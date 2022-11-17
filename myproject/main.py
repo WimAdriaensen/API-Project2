@@ -9,7 +9,7 @@ class Course(BaseModel):
     id: int
     name_course: str
     lecturer: str
-    branch: str
+    klass: str
 
 app = FastAPI()
 
