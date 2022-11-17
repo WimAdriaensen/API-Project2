@@ -61,6 +61,20 @@ course_webdesign = {
     "it_class": "APP"
 }
 
+course_bigdata = {
+    "id": 5,
+    "name_course": "Big Data",
+    "lecturer": "Bart Portier",
+    "it_class": "AI"
+}
+
+course_datasience = {
+    "id": 6,
+    "name_course": "Data Sience",
+    "lecturer": "Bart Portier",
+    "it_class": "AI"
+}
+
 courses_dict = {}
 courses_list = []
 
@@ -68,6 +82,8 @@ courses_list.append(course_api)
 courses_list.append(course_iot)
 courses_list.append(course_mysql)
 courses_list.append(course_webdesign)
+courses_list.append(course_bigdata)
+courses_list.append(course_datasience)
 courses_dict = courses_list
 
 
