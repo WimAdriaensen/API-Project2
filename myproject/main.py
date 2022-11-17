@@ -76,9 +76,15 @@ async def show_courses():
     return courses_dict
 
 
-# @app.get("/hello/{name}")
-# async def say_hello(name: str):
-#     return {"message": f"Hello {name}"}
+@app.get("/courses/{it_class}")
+async def get_courses(it_class: str):
+    hulp_list = []
+    get_dict = {}
+    for course in courses_list:
+        if course["it_class"] == it_class.upper():
+            hulp_list.append(course)
+    get_dict = hulp_list
+    return get_dict
 
 
 # Optie voor een extra GET? --> https://api.github.com/repos/wimadriaensen/wimadriaensen.github.io
