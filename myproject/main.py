@@ -9,6 +9,7 @@ class Course(BaseModel):
     id: int
     name_course: str
     lecturer: str
+    branch: str
 
 app = FastAPI()
 
@@ -35,13 +36,29 @@ app.add_middleware(
 course_api = {
     "id": 1,
     "name_course": "API Development",
-    "lecturer": "Michiel Verboven"
+    "lecturer": "Michiel Verboven",
+    "class": "CCS"
 }
 
 course_iot = {
     "id": 2,
     "name_course": "IoT Advanced",
-    "lecturer": "Stef Van Wolputte"
+    "lecturer": "Stef Van Wolputte",
+    "class": "CCS"
+}
+
+course_mysql = {
+    "id": 3,
+    "name_course": "MySQL",
+    "lecturer": "Brent Pulmans",
+    "class": "APP"
+}
+
+course_webdesign = {
+    "id": 4,
+    "name_course": "Webdesign Advanced",
+    "lecturer": "Maartje Eyskens",
+    "class": "APP"
 }
 
 courses_dict = {}
@@ -49,6 +66,8 @@ courses_list = []
 
 courses_list.append(course_api)
 courses_list.append(course_iot)
+courses_list.append(course_mysql)
+courses_list.append(course_webdesign)
 courses_dict = courses_list
 
 
