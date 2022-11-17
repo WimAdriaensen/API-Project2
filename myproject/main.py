@@ -9,7 +9,7 @@ class Course(BaseModel):
     id: int
     name_course: str
     lecturer: str
-    klass: str
+    it_class: str
 
 app = FastAPI()
 
@@ -37,28 +37,28 @@ course_api = {
     "id": 1,
     "name_course": "API Development",
     "lecturer": "Michiel Verboven",
-    "class": "CCS"
+    "it_class": "CCS"
 }
 
 course_iot = {
     "id": 2,
     "name_course": "IoT Advanced",
     "lecturer": "Stef Van Wolputte",
-    "class": "CCS"
+    "it_class": "CCS"
 }
 
 course_mysql = {
     "id": 3,
     "name_course": "MySQL",
     "lecturer": "Brent Pulmans",
-    "class": "APP"
+    "it_class": "APP"
 }
 
 course_webdesign = {
     "id": 4,
     "name_course": "Webdesign Advanced",
     "lecturer": "Maartje Eyskens",
-    "class": "APP"
+    "it_class": "APP"
 }
 
 courses_dict = {}
@@ -76,9 +76,9 @@ async def show_courses():
     return courses_dict
 
 
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+# @app.get("/hello/{name}")
+# async def say_hello(name: str):
+#     return {"message": f"Hello {name}"}
 
 
 # Optie voor een extra GET? --> https://api.github.com/repos/wimadriaensen/wimadriaensen.github.io
