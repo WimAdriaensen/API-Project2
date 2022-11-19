@@ -105,7 +105,7 @@ async def get_courses(it_class: str):
 # bv. url van mijn github ophalen
 @app.get("/maker")
 async def show_maker():
-    response = requests.get("https://api.github.com/repos/wimadriaensen/wimadriaensen.github.io")
+    response = requests.get("https://api.github.com/repos/wimadriaensen/API-Project")
     response_dict = {}
     response_dict["owner"] = response.json()["owner"]["login"]
     response_dict["github"] = response.json()["owner"]["html_url"]
