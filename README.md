@@ -65,4 +65,26 @@ De laaste screenshot is opnieuw van de GET-request '/courses' om aan te toen dat
 link: https://api-wimadriaensen.cloud.okteto.net/docs
 <br><br>
 
+### Screenshot docs
+![api-docs](images/api_docs.png)
+<br>
 
+### Screenshot /courses
+![api-docs-courses](images/)
+<br>
+
+### Screenshot GET /courses
+![api-docs-courses](images/)
+<br>
+
+### Screenshot GET /courses/{it_class}
+![api-docs-courses-itclass](images/)
+<br>
+
+### Screenshot POST /courses
+![api-docs-courses-post](images/)
+<br>
+
+### Screenshot GET /maker
+![api-docs-maker](images/)
+<br>
