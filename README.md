@@ -8,8 +8,6 @@ Ook kan je vakken toevoegen door de docent, de naam van het vak en de riching wa
 
 | Description | Link |
 | --- | --- |
-| Hosted API | www.google.be |
+| Hosted API | https://api-wimadriaensen.cloud.okteto.net/ |
 | Hosted front-end | https://wimadriaensen.github.io | |
 | Repository front-end | https://github.com/WimAdriaensen/wimadriaensen.github.io |
-
-
