@@ -69,22 +69,18 @@ link: https://api-wimadriaensen.cloud.okteto.net/docs
 ![api-docs](images/api_docs.png)
 <br>
 
-### Screenshot /courses
-![api-docs-courses](images/)
-<br>
-
 ### Screenshot GET /courses
-![api-docs-courses](images/)
-<br>
-
-### Screenshot GET /courses/{it_class}
-![api-docs-courses-itclass](images/)
+![api-docs-courses](images/api_docs_courses.png)
 <br>
 
 ### Screenshot POST /courses
-![api-docs-courses-post](images/)
+![api-docs-courses-post](images/api_docs_courses_post.png)
+<br>
+
+### Screenshot GET /courses/{it_class}
+![api-docs-courses-itclass](images/api_docs_courses_itclass.png)
 <br>
 
 ### Screenshot GET /maker
-![api-docs-maker](images/)
+![api-docs-maker](images/api_docs_maker.png)
 <br>
