@@ -56,7 +56,7 @@ De voorlaatste screenshot is een POST-request waarmee je een nieuw vak kan toevo
 ![api-post-courses](images/Postman_post_courses.png)
 <br>
 
-De laaste screenshot is opnieuw van de GET-request '/courses' om aan te toen dat het nieuwe vak is toegevoegd.
+De laaste screenshot is opnieuw van de GET-request '/courses' om aan te tonen dat het nieuwe vak is toegevoegd.
 ![api-get-courses-after-post](images/Postman_get_courses_na_post.png)
 <br>
 
