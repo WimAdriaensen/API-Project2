@@ -113,10 +113,10 @@ async def show_maker():
     return response_dict
 
 
-@app.post("/courses")
+@app.post("/courses", response_model=Course)
 async def create_course(course: Course):
     new_course = course.dict()
     courses_list.append(new_course)
-    print(courses_list)
+    # print(courses_list)
     courses_dict = courses_list
     return course
