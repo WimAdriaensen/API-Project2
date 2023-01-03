@@ -7,5 +7,5 @@ services:
   volumes:
     - sqlite_courseslessonslecturers_volume:/code/sqlitedb
     
-volume:
+volumes:
   sqlite_courseslessonslecturers_volume:
