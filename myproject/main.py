@@ -1,122 +1,107 @@
-from fastapi import FastAPI
-from pydantic import BaseModel, Field
-from typing import Union  # Dit moet ik gebruiken omdat ik anders de "None | None" niet kan gebruiken
-                                # Deze wordt vervangen door "Union[str, None] = None"
-import requests
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy.orm import Session
+
+import crud
+import models
+import schemas
+from database import SessionLocal, engine
+import os
+
+if not os.path.exists('.\sqlitedb'):
+    os.makedirs('.\sqlitedb')
 
 
-class Course(BaseModel):
-    id: int
-    name_course: str
-    lecturer: str
-    it_class: str
+models.Base.metadata.create_all(bind=engine)
 
 
-app = FastAPI()
-
-origins = [
-    "http://localhost/",
-    "http://localhost:8080/",
-    "https://localhost.tiangolo.com/",
-    "http://127.0.0.1:5500/",
-    "https://wimadriaensen.github.io",
-    "http://localhost:63343"
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-course_api = {
-    "id": 1,
-    "name_course": "API Development",
-    "lecturer": "Michiel Verboven",
-    "it_class": "CCS"
-}
-
-course_iot = {
-    "id": 2,
-    "name_course": "IoT Advanced",
-    "lecturer": "Stef Van Wolputte",
-    "it_class": "CCS"
-}
-
-course_mysql = {
-    "id": 3,
-    "name_course": "MySQL",
-    "lecturer": "Brent Pulmans",
-    "it_class": "APP"
-}
-
-course_webdesign = {
-    "id": 4,
-    "name_course": "Webdesign Advanced",
-    "lecturer": "Maartje Eyskens",
-    "it_class": "APP"
-}
-
-course_bigdata = {
-    "id": 5,
-    "name_course": "Big Data",
-    "lecturer": "Bart Portier",
-    "it_class": "AI"
-}
-
-course_datasience = {
-    "id": 6,
-    "name_course": "Data Sience",
-    "lecturer": "Bart Portier",
-    "it_class": "AI"
-}
-
-courses_dict = {}
-courses_list = []
-
-courses_list.append(course_api)
-courses_list.append(course_iot)
-courses_list.append(course_mysql)
-courses_list.append(course_webdesign)
-courses_list.append(course_bigdata)
-courses_list.append(course_datasience)
-courses_dict = courses_list
+app: FastAPI = FastAPI()
 
 
-@app.get("/courses")
-async def show_courses():
-    return courses_dict
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 
-@app.get("/courses/{it_class}")
-async def get_courses(it_class: str):
-    hulp_list = []
-    for course in courses_dict:
-        if course["it_class"] == it_class.upper():
-            hulp_list.append(course)
-    get_dict = hulp_list
-    return get_dict
+@app.post("/courses/", response_model=schemas.Course)
+def create_course(course: schemas.CourseCreate, db:Session = Depends(get_db)):
+    return crud.create_course(db=db, course=course)
 
 
-# Optie voor een extra GET? --> https://api.github.com/repos/wimadriaensen/wimadriaensen.github.io
-# bv. url van mijn github ophalen
-@app.get("/maker")
-async def show_maker():
-    response = requests.get("https://api.github.com/repos/wimadriaensen/API-Project")
-    response_dict = {}
-    response_dict["owner"] = response.json()["owner"]["login"]
-    response_dict["github"] = response.json()["owner"]["html_url"]
-    response_dict["repository"] = response.json()["html_url"]
-    return response_dict
+@app.get("/courses/", response_model=list[schemas.Course])
+def get_courses(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    courses = crud.get_courses(db, skip=skip, limit=limit)
+    return courses
 
 
-@app.post("/courses", response_model=Course)
-async def create_course(course: Course):
-    new_course = course.dict()
-    courses_list.append(new_course)
-    # print(courses_list)
-    courses_dict = courses_list
-    return course
+@app.get("/courses/{course_id}", response_model=schemas.Course)
+def get_course_by_id(course_id: int, db: Session = Depends(get_db)):
+    db_course = crud.get_course_by_id(db, course_id=course_id)
+    if db_course is None:
+        raise HTTPException(status_code=404, detail="Course not found")
+    return db_course
+
+
+# @app.get("/courses/{it_course}", response_model=schemas.Course)
+# def get_course_by_name(it_course: str, db: Session = Depends(get_db)):
+#     db_course = crud.get_course_by_name(db, it_course=it_course)
+#     if db_course is None:
+#         raise HTTPException(status_code=404, detail="Course not found")
+#     return db_course
+
+# ____________________________________________________________________
+
+
+@app.post("/lessons/", response_model=schemas.Lesson)
+def create_lesson(course_id: int, lecturer_id: int, lesson: schemas.LessonCreate, db: Session = Depends(get_db)):
+    return crud.create_lesson(db, lesson=lesson, course_id=course_id, lecturer_id=lecturer_id)
+
+
+@app.get("/lessons/", response_model=list[schemas.Lesson])
+def get_lessons(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    lessons = crud.get_lessons(db, skip=skip, limit=limit)
+    return lessons
+
+
+@app.get("/lessons/{lesson_id}", response_model=schemas.Lesson)
+def get_lesson_by_id(lesson_id: int, db: Session = Depends(get_db)):
+    db_lesson = crud.get_lesson_by_id(db, lesson_id=lesson_id)
+    if db_lesson is None:
+        raise HTTPException(status_code=404, detail="Lesson not found")
+    return db_lesson
+
+# "app get lesson by 'lecturer_id' + 'course_id' " nog doen
+
+# _________________________________________________________________________
+
+
+@app.post("/lecturers/", response_model=schemas.Lecturer)
+def create_lecturer(lecturer: schemas.LecturerCreate, db: Session = Depends(get_db)):
+    db_lecturer = crud.get_lecturer_by_name(db, lecturer=lecturer.lecturer)
+    if db_lecturer:
+        raise HTTPException(status_code=400, detail="Lecturer already created")
+    return crud.create_lecturer(db, lecturer=lecturer)
+
+
+@app.get("/lecturers/", response_model=list[schemas.Lecturer])
+def get_lecturers(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    lecturers = crud.get_lecturers(db, skip=skip, limit=limit)
+    return lecturers
+
+
+@app.get("/lecturers/{lecturer_id}", response_model=schemas.Lecturer)
+def get_lecturer_by_id(lecturer_id: int, db: Session = Depends(get_db)):
+    db_lecturer = crud.get_lecturer_by_id(db, lecturer_id=lecturer_id)
+    if db_lecturer is None:
+        raise HTTPException(status_code=404, detail="Lecturer not found")
+    return db_lecturer
+
+
+# @app.get("/lecturers/{lecturer}", response_model=schemas.Lecturer)
+# def get_lecturer_by_name(lecturer: str, db: Session = Depends(get_db)):
+#     db_lecturer = crud.get_lecturer_by_name(db, lecturer=lecturer)
+#     if db_lecturer is None:
+#         raise HTTPException(status_code=404, detail="Lecturer not found")
+#     return db_lecturer

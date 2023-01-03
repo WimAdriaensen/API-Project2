@@ -4,3 +4,8 @@ services:
   image: r0445498/api-project2
   ports:
     - "8000:8000"
+  volumes:
+    - sqlite_courseslessonslecturers_volume:/code/sqlitedb
+    
+volume:
+  sqlite_courseslessonslecturers_volume:
