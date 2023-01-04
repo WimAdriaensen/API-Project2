@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from fastapi import Response, HTTPException
 from starlette import status
 
+import auth
 import models
 import schemas
 
@@ -36,6 +37,7 @@ def delete_course_and_lessons(db: Session, course_id: int):
     db_lesson.delete(synchronize_session=False)
     db.commit()
     return Response(status_code=status.HTTP_200_OK, content="Course and its lessons are deleted")
+
 
 # ---------------------------------- LESSONS --------------------------------------
 
@@ -92,3 +94,26 @@ def create_lecturer(db: Session, lecturer: schemas.LecturerCreate):
     db.commit()
     db.refresh(db_lecturer)
     return db_lecturer
+
+
+# ------------------------------------- USERS --------------------------------------
+
+def get_user(db: Session, user_id: int):
+    return db.query(models.User).filter(models.User.id == user_id).first()
+
+
+def get_user_by_email(db: Session, email: str):
+    return db.query(models.User).filter(models.User.email == email).first()
+
+
+def get_users(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.User).offset(skip).limit(limit).all()
+
+
+def create_user(db: Session, user: schemas.UserCreate):
+    hashed_password = auth.get_password_hash(user.password)
+    db_user = models.User(email=user.email, hashed_password=hashed_password)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
