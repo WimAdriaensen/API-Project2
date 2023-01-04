@@ -51,12 +51,19 @@ def get_course_by_id(course_id: int, db: Session = Depends(get_db)):
 #         raise HTTPException(status_code=404, detail="Course not found")
 #     return db_course
 
+@app.delete("/delcourse/{course_id}", response_model=schemas.Course)
+def delete_course_and_lessons(course_id: int, db: Session = Depends(get_db)):
+    db_course = crud.get_course_by_id(db, course_id=course_id)
+    if db_course is None:
+        raise HTTPException(status_code=404, detail="Course not found")
+    return crud.delete_course_and_lessons(db, course_id=course_id)
+
 # ____________________________________________________________________
 
 
 @app.post("/lessons/", response_model=schemas.Lesson)
-def create_lesson(course_id: int, lecturer_id: int, lesson: schemas.LessonCreate, db: Session = Depends(get_db)):
-    return crud.create_lesson(db, lesson=lesson, course_id=course_id, lecturer_id=lecturer_id)
+def create_lesson(lesson: schemas.LessonCreate, db: Session = Depends(get_db)):
+    return crud.create_lesson(db, lesson=lesson)
 
 
 @app.get("/lessons/", response_model=list[schemas.Lesson])
@@ -72,7 +79,17 @@ def get_lesson_by_id(lesson_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Lesson not found")
     return db_lesson
 
-# "app get lesson by 'lecturer_id' + 'course_id' " nog doen
+# "app get lesson by 'lecturer_id' + 'course_id' " nog doen?
+
+
+@app.put("/updlesson/{lesson_id}", response_model=schemas.Lesson)
+def update_lesson(lesson_id: int, lesson: schemas.LessonPut,
+                  db: Session = Depends(get_db)):
+    db_lesson = crud.get_lesson_by_id(db, lesson_id=lesson_id)
+    if db_lesson is None:
+        raise HTTPException(status_code=404, detail="Lesson not found")
+    return crud.update_lesson(db, lesson=lesson, lesson_id=lesson_id)
+
 
 # _________________________________________________________________________
 

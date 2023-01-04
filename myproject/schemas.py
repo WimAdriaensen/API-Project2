@@ -18,7 +18,8 @@ class CourseCreate(CourseBase):
 
 
 class LessonCreate(LessonBase):
-    pass
+    course_id: int
+    lecturer_id: int
 
 
 class LecturerCreate(LecturerBase):
@@ -49,3 +50,7 @@ class Lecturer(LecturerBase):
     class Config:
         orm_mode = True
 
+
+class LessonPut(LessonBase):
+    course_id: int
+    lecturer_id: int

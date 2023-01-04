@@ -1,4 +1,6 @@
 from sqlalchemy.orm import Session
+from fastapi import Response, HTTPException
+from starlette import status
 
 import models
 import schemas
@@ -27,6 +29,14 @@ def create_course(db: Session, course: schemas.CourseCreate):
     return db_course
 
 
+def delete_course_and_lessons(db: Session, course_id: int):
+    db_course = db.query(models.Course).filter(models.Course.id == course_id)
+    db_course.delete(synchronize_session=False)
+    db_lesson = db.query(models.Lesson).filter(models.Lesson.course_id == course_id)
+    db_lesson.delete(synchronize_session=False)
+    db.commit()
+    return Response(status_code=status.HTTP_200_OK, content="Course and its lessons are deleted")
+
 # ---------------------------------- LESSONS --------------------------------------
 
 
@@ -46,12 +56,20 @@ def get_lessons(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Lesson).offset(skip).limit(limit).all()
 
 
-def create_lesson(db: Session, lesson: schemas.LessonCreate, course_id: int, lecturer_id: int):
-    db_lesson = models.Lesson(**lesson.dict(), course_id=course_id, lecturer_id=lecturer_id)
+def create_lesson(db: Session, lesson: schemas.LessonCreate):
+    db_lesson = models.Lesson(**lesson.dict())
     db.add(db_lesson)
     db.commit()
     db.refresh(db_lesson)
     return db_lesson
+
+
+def update_lesson(db: Session, lesson: schemas.LessonPut, lesson_id: int):
+    db_lesson = db.query(models.Lesson).filter(models.Lesson.id == lesson_id)
+    db_lesson.update(lesson.dict(exclude_unset=True), synchronize_session=False)
+    updated_lesson = db.query(models.Lesson).filter(models.Lesson.id == lesson_id).first()
+    db.commit()
+    return updated_lesson
 
 
 # ---------------------------------- LECTURERS ------------------------------------
