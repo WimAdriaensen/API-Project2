@@ -7,15 +7,15 @@ Zo werk ik met een database voor deze API met een tabel voor de vakken (Courses)
 <br>
 ![image ERD](images/ERD_database.png)
 <br>
-In de tabel Courses zitten de vakken, in de tabel Lecturers zitten de docenten en in de tabel Lessons worden de vakken aan de docenten gekoppeld en voor welke richting (it_class) deze voorzien is (nog zonder datum en tijd).
+In de tabel Courses zitten de vakken, in de tabel Lecturers zitten de docenten en in de tabel Lessons worden de vakken aan de docenten gekoppeld en voor welke richting (it_class) deze voorzien is (nog zonder datum en tijd). Ook is er een tabel Users aangemaakt voor authentication.
 
 #### Links
 
 | Description | Link |
 | --- | --- |
 | Hosted API | https://api-wimadriaensen.cloud.okteto.net/ |
-| Hosted front-end | https://wimadriaensen.github.io | |
-| Repository front-end | https://github.com/WimAdriaensen/wimadriaensen.github.io |
+| Hosted front-end |   |
+| Repository front-end |  |
 <br>
 
 ### De front-end
@@ -33,19 +33,16 @@ Daaronder vind u een knop 'Show maker information', deze knop spreekt de API van
 
 # Werking API via Postman
 
-#### Hier zijn enkele screenshots met de werking van de API met de applicatie Postman.<br><br>
-
-<br>
+#### Hieronder zijn enkele screenshots met de werking van de API met de applicatie Postman.<br><br>
 
 ### GET-request 1
-De eerste screenshot is een GET-request van '/courses', deze vraagt de huidige lijst op van vakken.
+De eerste screenshot is een GET-request van '/courses', deze vraagt de huidige lijst op van vakken. Als er reeds lessen zijn aangemaakt met deze vakken ziet u deze hier ook terug.
 ![api-get-courses](images/Postman_get_courses.png)
 <br>
 
 ### GET-request 2
-De volgende screenshot is opnieuw een GET-request, ditmaal van '/courses/{it_class}'. Deze vraagt aan de API om alle vakken te geven die horen bij een bepaalde richting (it_class).<br>
-Hier heb ik gevraagd om alle vakken te geven van de richting AI.
-![api-get-courses-class](images/Postman_get_courses_class.png)
+De volgende screenshot is opnieuw een GET-request, ditmaal van '/courses/{course_id}'. Deze endpoint van de API geeft het vak weer met de gegeven course_id.<br>
+![api-get-courses-id](images/Postman_get_courses_id.png)
 <br>
 
 ### GET-request 3
