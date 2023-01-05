@@ -2,9 +2,12 @@
 ###### door Wim Adriaensen
 ## Beschrijving
 ### Gekozen thema
-Het gekozen thema voor mijn API is Thomas More vakken.
-Met deze API kan je de lijst met vakken opvragen maar je kan ook enkel de vakken opvragen van een bepaalde richting.
-Ook kan je vakken toevoegen door de docent, de naam van het vak en de riching waarin het vak gegeven word mee te geven aan de API. Het laatste wat je kan doen met de API is opvragen wie de maker is van de API met een link naar het Github account van de maker en een link naar de Github repository van de API.
+Het gekozen thema voor mijn API is een soort van Thomas More lessenrooster, waarbij je vakken en docenten kan koppelen in lessen voor een bepaalde richting.
+Zo werk ik met een database voor deze API met een tabel voor de vakken (Courses), de docenten (Lecturers) en de lessen (Lessons). Het ERD ziet er als volgt uit.
+<br>
+![image ERD](images/ERD_database.png)
+<br>
+In de tabel Courses zitten de vakken, in de tabel Lecturers zitten de docenten en in de tabel Lessons worden de vakken aan de docenten gekoppeld en voor welke richting (it_class) deze voorzien is (nog zonder datum en tijd).
 
 #### Links
 
