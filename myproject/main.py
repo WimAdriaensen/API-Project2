@@ -50,21 +50,18 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
 @app.post("/courses/", response_model=schemas.Course)
-def create_course(course: schemas.CourseCreate, db: Session = Depends(get_db),
-                  token: str = Depends(oauth2_scheme)):
+def create_course(course: schemas.CourseCreate, db: Session = Depends(get_db)):     #, token: str = Depends(oauth2_scheme)
     return crud.create_course(db=db, course=course)
 
 
 @app.get("/courses/", response_model=list[schemas.Course])
-def get_courses(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),
-                token: str = Depends(oauth2_scheme)):
+def get_courses(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     courses = crud.get_courses(db, skip=skip, limit=limit)
     return courses
 
 
 @app.get("/courses/{course_id}", response_model=schemas.Course)
-def get_course_by_id(course_id: int, db: Session = Depends(get_db),
-                     token: str = Depends(oauth2_scheme)):
+def get_course_by_id(course_id: int, db: Session = Depends(get_db)):
     db_course = crud.get_course_by_id(db, course_id=course_id)
     if db_course is None:
         raise HTTPException(status_code=404, detail="Course not found")
@@ -79,8 +76,7 @@ def get_course_by_id(course_id: int, db: Session = Depends(get_db),
 #     return db_course
 
 @app.delete("/delcourse/{course_id}", response_model=schemas.Course)
-def delete_course_and_lessons(course_id: int, db: Session = Depends(get_db),
-                              token: str = Depends(oauth2_scheme)):
+def delete_course_and_lessons(course_id: int, db: Session = Depends(get_db)):
     db_course = crud.get_course_by_id(db, course_id=course_id)
     if db_course is None:
         raise HTTPException(status_code=404, detail="Course not found")
@@ -91,21 +87,18 @@ def delete_course_and_lessons(course_id: int, db: Session = Depends(get_db),
 
 
 @app.post("/lessons/", response_model=schemas.Lesson)
-def create_lesson(lesson: schemas.LessonCreate, db: Session = Depends(get_db),
-                  token: str = Depends(oauth2_scheme)):
+def create_lesson(lesson: schemas.LessonCreate, db: Session = Depends(get_db)):
     return crud.create_lesson(db, lesson=lesson)
 
 
 @app.get("/lessons/", response_model=list[schemas.Lesson])
-def get_lessons(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),
-                token: str = Depends(oauth2_scheme)):
+def get_lessons(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     lessons = crud.get_lessons(db, skip=skip, limit=limit)
     return lessons
 
 
 @app.get("/lessons/{lesson_id}", response_model=schemas.Lesson)
-def get_lesson_by_id(lesson_id: int, db: Session = Depends(get_db),
-                     token: str = Depends(oauth2_scheme)):
+def get_lesson_by_id(lesson_id: int, db: Session = Depends(get_db)):
     db_lesson = crud.get_lesson_by_id(db, lesson_id=lesson_id)
     if db_lesson is None:
         raise HTTPException(status_code=404, detail="Lesson not found")
@@ -117,7 +110,7 @@ def get_lesson_by_id(lesson_id: int, db: Session = Depends(get_db),
 
 @app.put("/updlesson/{lesson_id}", response_model=schemas.Lesson)
 def update_lesson(lesson_id: int, lesson: schemas.LessonPut,
-                  db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+                  db: Session = Depends(get_db)):
     db_lesson = crud.get_lesson_by_id(db, lesson_id=lesson_id)
     if db_lesson is None:
         raise HTTPException(status_code=404, detail="Lesson not found")
@@ -128,8 +121,7 @@ def update_lesson(lesson_id: int, lesson: schemas.LessonPut,
 
 
 @app.post("/lecturers/", response_model=schemas.Lecturer)
-def create_lecturer(lecturer: schemas.LecturerCreate, db: Session = Depends(get_db),
-                    token: str = Depends(oauth2_scheme)):
+def create_lecturer(lecturer: schemas.LecturerCreate, db: Session = Depends(get_db)):
     db_lecturer = crud.get_lecturer_by_name(db, lecturer=lecturer.lecturer)
     if db_lecturer:
         raise HTTPException(status_code=400, detail="Lecturer already created")
@@ -137,15 +129,13 @@ def create_lecturer(lecturer: schemas.LecturerCreate, db: Session = Depends(get_
 
 
 @app.get("/lecturers/", response_model=list[schemas.Lecturer])
-def get_lecturers(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),
-                  token: str = Depends(oauth2_scheme)):
+def get_lecturers(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     lecturers = crud.get_lecturers(db, skip=skip, limit=limit)
     return lecturers
 
 
 @app.get("/lecturers/{lecturer_id}", response_model=schemas.Lecturer)
-def get_lecturer_by_id(lecturer_id: int, db: Session = Depends(get_db),
-                       token: str = Depends(oauth2_scheme)):
+def get_lecturer_by_id(lecturer_id: int, db: Session = Depends(get_db)):
     db_lecturer = crud.get_lecturer_by_id(db, lecturer_id=lecturer_id)
     if db_lecturer is None:
         raise HTTPException(status_code=404, detail="Lecturer not found")
@@ -169,8 +159,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 
 @app.get("/users/", response_model=list[schemas.User])
-def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),
-               token: str = Depends(oauth2_scheme)):
+def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     users = crud.get_users(db, skip=skip, limit=limit)
     return users
 
