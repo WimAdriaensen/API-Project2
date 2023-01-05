@@ -115,7 +115,10 @@ PUT-request van lesson met id '8': <br>
 <br>
 
 ### DELETE-request 1
-
+Volgende screenhot is van een DELETE-request naar '/delcourse/{course_id}'. Hiermee kan je een course deleten met het 'id' gegeven als 'course_id'. <br>
+Als een course verwijderd wordt zullen ook de bijhorende lessen van deze course verwijderd worden. <br>
+![api-delete-course-7](images/Postman_delete_delcourse.png)
+<br><br>
 
 # Docs
 #### Hier worden er enkele screenshots getoond van de endpoint '/docs' van de API.
