@@ -50,8 +50,10 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
 @app.post("/courses/", response_model=schemas.Course)
-def create_course(course: schemas.CourseCreate, db: Session = Depends(get_db),
-                  token: str = Depends(oauth2_scheme)):
+def create_course(course: schemas.CourseCreate, db: Session = Depends(get_db)):
+    db_course = crud.get_course_by_name(db, it_course=course.name_course)
+    if db_course:
+        raise HTTPException(status_code=400, detail="Course already created")
     return crud.create_course(db=db, course=course)
 
 
@@ -77,8 +79,7 @@ def get_course_by_id(course_id: int, db: Session = Depends(get_db)):
 #     return db_course
 
 @app.delete("/delcourse/{course_id}", response_model=schemas.Course)
-def delete_course_and_lessons(course_id: int, db: Session = Depends(get_db),
-                              token: str = Depends(oauth2_scheme)):
+def delete_course_and_lessons(course_id: int, db: Session = Depends(get_db)):
     db_course = crud.get_course_by_id(db, course_id=course_id)
     if db_course is None:
         raise HTTPException(status_code=404, detail="Course not found")
@@ -89,8 +90,7 @@ def delete_course_and_lessons(course_id: int, db: Session = Depends(get_db),
 
 
 @app.post("/lessons/", response_model=schemas.Lesson)
-def create_lesson(lesson: schemas.LessonCreate, db: Session = Depends(get_db),
-                  token: str = Depends(oauth2_scheme)):
+def create_lesson(lesson: schemas.LessonCreate, db: Session = Depends(get_db)):
     return crud.create_lesson(db, lesson=lesson)
 
 
@@ -113,7 +113,7 @@ def get_lesson_by_id(lesson_id: int, db: Session = Depends(get_db)):
 
 @app.put("/updlesson/{lesson_id}", response_model=schemas.Lesson)
 def update_lesson(lesson_id: int, lesson: schemas.LessonPut,
-                  db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+                  db: Session = Depends(get_db)):
     db_lesson = crud.get_lesson_by_id(db, lesson_id=lesson_id)
     if db_lesson is None:
         raise HTTPException(status_code=404, detail="Lesson not found")
@@ -124,8 +124,7 @@ def update_lesson(lesson_id: int, lesson: schemas.LessonPut,
 
 
 @app.post("/lecturers/", response_model=schemas.Lecturer)
-def create_lecturer(lecturer: schemas.LecturerCreate, db: Session = Depends(get_db),
-                    token: str = Depends(oauth2_scheme)):
+def create_lecturer(lecturer: schemas.LecturerCreate, db: Session = Depends(get_db)):
     db_lecturer = crud.get_lecturer_by_name(db, lecturer=lecturer.lecturer)
     if db_lecturer:
         raise HTTPException(status_code=400, detail="Lecturer already created")
@@ -146,6 +145,14 @@ def get_lecturer_by_id(lecturer_id: int, db: Session = Depends(get_db)):
     return db_lecturer
 
 
+@app.delete("/dellecturer/{lecturer_id}", response_model=schemas.Lecturer)
+def delete_lecturer_and_lessons(lecturer_id: int, db: Session = Depends(get_db)):
+    db_lecturer = crud.get_lecturer_by_id(db, lecturer_id=lecturer_id)
+    if db_lecturer is None:
+        raise HTTPException(status_code=404, detail="Lecturer not found")
+    return crud.delete_lecturer_and_lessons(db, lecturer_id=lecturer_id)
+
+
 # @app.get("/lecturers/{lecturer}", response_model=schemas.Lecturer)
 # def get_lecturer_by_name(lecturer: str, db: Session = Depends(get_db)):
 #     db_lecturer = crud.get_lecturer_by_name(db, lecturer=lecturer)
@@ -163,7 +170,8 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 
 @app.get("/users/", response_model=list[schemas.User])
-def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),
+                    token: str = Depends(oauth2_scheme)):
     users = crud.get_users(db, skip=skip, limit=limit)
     return users
 

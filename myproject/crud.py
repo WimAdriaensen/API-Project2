@@ -96,6 +96,16 @@ def create_lecturer(db: Session, lecturer: schemas.LecturerCreate):
     return db_lecturer
 
 
+def delete_lecturer_and_lessons(db: Session, lecturer_id: int):
+    db_lecturer = db.query(models.Lecturer).filter(models.Lecturer.id == lecturer_id)
+    db_lecturer.delete(synchronize_session=False)
+    db_lesson = db.query(models.Lesson).filter(models.Lesson.lecturer_id == lecturer_id)
+    db_lesson.delete(synchronize_session=False)
+    db.commit()
+    return Response(status_code=status.HTTP_200_OK, content="Lecturer and its lessons are deleted")
+
+
+
 # ------------------------------------- USERS --------------------------------------
 
 def get_user(db: Session, user_id: int):
