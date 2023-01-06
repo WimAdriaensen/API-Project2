@@ -9,10 +9,25 @@ Zo werk ik met een database voor deze API met een tabel voor de vakken (Courses)
 <br>
 In de tabel Courses zitten de vakken, in de tabel Lecturers zitten de docenten en in de tabel Lessons worden de vakken aan de docenten gekoppeld en voor welke richting (it_class) deze voorzien is (nog zonder datum en tijd). Ook is er een tabel Users aangemaakt voor authentication.
 <br>
+
 ### Extra's 
-#### Pytest
+#### 2.1 & 2.1.1 - Schrijven van tests voor alle endpoints
 Ik heb test geschreven voor al de endpoints van de API zowel voor de GET- als voor de POST-, PUT-, en DELETE-requests. <br>
 ![pytest-tests-completed](images/Pytest_tests.png)
+<br><br>
+
+#### 3.2 - Gebruik van Grafana Cloud
+Ik heb op Grafana een dashboard aangemaakt die data laat zijn die hij opvraagt van mijn API. <br>
+het dashboard ziet er als volgt uit en word ook geupdatet bij veranderingen. <br><br>
+![grafana-dashboard](images/Grafana_dashboard.png)
+<br><br>
+Deze 3 panelen gebruiken elk een andere endpoint van de API, in Grafana heb ik dus ook 3 data sources voor mijn API, elke data source is een andere endpoint. <br><br>
+![grafana-data-sources](images/Grafana_data_sources.png)
+<br><br>
+Zo ziet een data source er in detail uit: <br><br>
+![grafana-data-source-detail](images/Grafana_data_source_detail.png)
+<br><br>
+
 
 #### Links
 
@@ -21,19 +36,6 @@ Ik heb test geschreven voor al de endpoints van de API zowel voor de GET- als vo
 | Hosted API | https://api-wimadriaensen.cloud.okteto.net/ |
 | Hosted front-end |   |
 | Repository front-end |  |
-<br>
-
-### De front-end
-De front-end ziet er als volgt uit.
-![image front-end](images/Eerste_zicht_front-end.png)
-Bij het laden van de pagina vraagt hij aan de API de huidige lijst van vakken, deze word dan ook getoond op de pagina. onderaan staat een knop 'Refresh' om opnieuw de lijst op te vragen bij de API. <br><br>
-
-Onder de lijst met vakken vind je een lege tabel terug, in deze tabel komen de vakken te staan die je per richting (of klas) vraagt aan de API. Door in het lege veld de richting in te vullen waarvan je de vakken wil zien en vervolgens op de knop 'Search' drukt worden de vakken van deze richting bij de API opgevraagd. <br><br>
-
-Aan de rechterzijde van de pagina kan je een nieuw vak toevoegen door de docent, de naam van het vak en de richting waarin dit vak gegeven word mee te geven aan de API. Door op 'Create course' te drukken worden deze waardes meeggeven aan de API via een POST request. De gegevens die door de API zijn toegevoegd worden daaronder nog eens in het vet weergegeven.<br> 
-(Het 'ID' moet niet meegegeven worden, dit word automatisch ingevuld).<br><br>
-
-Daaronder vind u een knop 'Show maker information', deze knop spreekt de API van github aan en vraagt de Github gegevens op van de eigenaar (ik). Hij geeft de accountnaam van de eigenaar van de Github repository weer als ook de link naar zijn Github account en de link naar de repository.
 <br>
 
 # Werking API via Postman
