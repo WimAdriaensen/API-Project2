@@ -8,6 +8,11 @@ Zo werk ik met een database voor deze API met een tabel voor de vakken (Courses)
 ![image ERD](images/ERD_database.png)
 <br>
 In de tabel Courses zitten de vakken, in de tabel Lecturers zitten de docenten en in de tabel Lessons worden de vakken aan de docenten gekoppeld en voor welke richting (it_class) deze voorzien is (nog zonder datum en tijd). Ook is er een tabel Users aangemaakt voor authentication.
+<br>
+### Extra's 
+#### Pytest
+Ik heb test geschreven voor al de endpoints van de API zowel voor de GET- als voor de POST-, PUT-, en DELETE-requests. <br>
+![pytest-tests-completed](images/Pytest_tests.png)
 
 #### Links
 
@@ -118,6 +123,18 @@ PUT-request van lesson met id '8': <br>
 Volgende screenhot is van een DELETE-request naar '/delcourse/{course_id}'. Hiermee kan je een course deleten met het 'id' gegeven als 'course_id'. <br>
 Als een course verwijderd wordt zullen ook de bijhorende lessen van deze course verwijderd worden. <br>
 ![api-delete-course-7](images/Postman_delete_delcourse.png)
+<br>
+Zo zie je in de volgende screenshot dat de lesson voor lecturer 'Paus Franciscus' verdwenen is. <br>
+![api-show-lecturer-with-deleted-lesson](images/Postman_get_lecturers_after_delete_course.png)
+<br><br>
+
+### DELETE-request 2
+Deze screenshot is van een DELETE-request naar '/dellecturer/{lecturer_id}'. Met dit endpoint kan je een lecturer met meegegeven id verwijderen, net zoals bij de delete-request hierboven, worden de de bijhorende lessons van de lecturer mee verwijderd. <br>
+![api-delete-lecturer-6](images/Postman_delete_dellecturer.png)
+<br><br>
+Als laatste zou ik nog graag willen vermelden dat wanneer je aan een request een id meegeeft die niet bestaat zal de API ook antwoorden dat hij de 'Course', 'Lesson' of 'Lecturer' niet heeft gevonden. <br>
+Dit is bijvoorbeeld de response wanneer je de 'lecturer_id' opzoekt van de lecturer die we net verwijderd hebben. <br>
+![api-get-none-existend-lecturer](images/Postman_delete_dellecturer_not_found.png)
 <br><br>
 
 # Docs
