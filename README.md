@@ -10,6 +10,16 @@ Zo werk ik met een database voor deze API met een tabel voor de vakken (Courses)
 In de tabel Courses zitten de vakken, in de tabel Lecturers zitten de docenten en in de tabel Lessons worden de vakken aan de docenten gekoppeld en voor welke richting (it_class) deze voorzien is (nog zonder datum en tijd). Ook is er een tabel Users aangemaakt voor authentication.
 <br>
 
+## Links
+
+| Description | Link |
+| --- | --- |
+| Hosted API | https://api-wimadriaensen.cloud.okteto.net/ |
+| Grafana Dashboard | https://apiproject2.grafana.net/d/go6sUVhVz/api-project-2-dashboard?orgId=1&refresh=5s  |
+<br>
+(Voor het Grafana dashboard zijn er uitnodigings mails verzonden naar Michiel Verboven en Brent Pulmans)
+<br>
+
 ## Extra's 
 ### 2.1 & 2.1.1 - Schrijven van tests voor alle endpoints
 Ik heb test geschreven voor al de endpoints van de API zowel voor de GET- als voor de POST-, PUT-, en DELETE-requests. <br>
@@ -79,16 +89,6 @@ Zo ziet een data source er in detail uit: <br><br>
 ![grafana-data-source-detail](images/Grafana_data_source_detail.png)
 <br><br>
 
-
-## Links
-
-| Description | Link |
-| --- | --- |
-| Hosted API | https://api-wimadriaensen.cloud.okteto.net/ |
-| Grafana Dashboard | https://apiproject2.grafana.net/d/go6sUVhVz/api-project-2-dashboard?orgId=1&refresh=5s  |
-<br>
-(Voor het Grafana dashboard zijn er uitnodigings mails verzonden naar Michiel Verboven en Brent Pulmans)
-<br>
 
 # Werking API via Postman
 
