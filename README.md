@@ -80,13 +80,13 @@ Zo ziet een data source er in detail uit: <br><br>
 <br><br>
 
 
-### Links
+## Links
 
 | Description | Link |
 | --- | --- |
 | Hosted API | https://api-wimadriaensen.cloud.okteto.net/ |
-| Hosted front-end |   |
-| Repository front-end |  |
+| Hosted front-end | (geen front-end)  |
+| Repository front-end | (geen font-end) |
 <br>
 
 # Werking API via Postman
