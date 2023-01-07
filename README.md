@@ -20,7 +20,7 @@ In de tabel Courses zitten de vakken, in de tabel Lecturers zitten de docenten e
 (Voor het Grafana dashboard zijn er uitnodigings mails verzonden naar Michiel Verboven en Brent Pulmans)
 <br>
 
-## Extra's 
+## Extra's  (2.1, 2.1.1, 2.2 & 3.2)
 ### 2.1 & 2.1.1 - Schrijven van tests voor alle endpoints
 Ik heb test geschreven voor al de endpoints van de API zowel voor de GET- als voor de POST-, PUT-, en DELETE-requests. <br>
 ![pytest-tests-completed](images/Pytest_tests.png)
@@ -74,6 +74,11 @@ Ook testen we dat we de juiste responses krijgen wanneer we een course proberen 
 Deze tests komen ook weer overeen met die voor de Courses, maar dan voor Lecturers. <br>
 We deleten hier de laatst aangemaakte Lecturer en controleren of we de correcte response krijgen. We testen ook met een onbestaande lecturer_id en met een string value i.p.v. een integer. <br><br>
 ![test-delete-lecturer](images/Test_delete_lecturer.png)
+<br><br><br>
+
+### 2.2 - Communiceer met een externe API vanuit je eigen API.
+Ik communiceer met de Github API om mij naam, Github account en project repository op te halen. <br><br>
+![api-get-owner](images/api_get_owner.png)
 <br><br><br>
 
 
@@ -262,4 +267,8 @@ link: https://api-wimadriaensen.cloud.okteto.net/docs
 
 ### Screenshot GET /users/me
 ![api-get-users-me](images/api_get_users_me.png)
+<br>
+
+### Screenshot GET /owner
+![api-get-owner](images/api_get_owner.png)
 <br>
