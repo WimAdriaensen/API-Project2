@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 import auth
+import requests
 
 import crud
 import models
@@ -171,7 +172,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 @app.get("/users/", response_model=list[schemas.User])
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),
-                    token: str = Depends(oauth2_scheme)):
+               token: str = Depends(oauth2_scheme)):
     users = crud.get_users(db, skip=skip, limit=limit)
     return users
 
@@ -200,3 +201,15 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
     )
 
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+# ----------------------------------------------------------------------------
+
+@app.get("/owner")
+def show_owner(token: str = Depends(oauth2_scheme)):
+    response = requests.get("https://api.github.com/repos/wimadriaensen/API-Project2")
+    response_dict = {}
+    response_dict["owner"] = response.json()["owner"]["login"]
+    response_dict["github"] = response.json()["owner"]["html_url"]
+    response_dict["repository"] = response.json()["html_url"]
+    return response_dict

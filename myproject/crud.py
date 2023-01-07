@@ -105,7 +105,6 @@ def delete_lecturer_and_lessons(db: Session, lecturer_id: int):
     return Response(status_code=status.HTTP_200_OK, content="Lecturer and its lessons are deleted")
 
 
-
 # ------------------------------------- USERS --------------------------------------
 
 def get_user(db: Session, user_id: int):
