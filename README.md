@@ -18,10 +18,10 @@ Ik heb test geschreven voor al de endpoints van de API zowel voor de GET- als vo
 
 #### Tests GET-requests '/courses' & '/courses/{course_id}'
 Met deze tests test ik de GET endpoints van 'Courses'. Zo test ik of de juiste statuscodes worden teruggegeven en test ik of de data die ik terugkrijg van het juiste type is. <br>
-Zo moeten de juiste responses status 200 teruggeven, wanneer je data opvraagt die niet bestaat moet hij status 404 geven en wanneer je data van het verkeerde type meegeeft moet hij statuscode 422 teruggeven. <br><br>
+Zo moeten de juiste responses status 200 teruggeven, wanneer je data opvraagt die niet bestaat moet hij status 404 geven en wanneer je data van het verkeerde type meegeeft moet hij statuscode 422 teruggeven. <br>
+Ook word er getest wanneer je een Course opvraagt met een niet bestaande 'course_id' of als je een string meegeeft in plaats van een integer. <br><br>
 ![test-get-courses](images/Test_get_courses.png)
 <br>
-Ook word er getest wanneer je een Course opvraagt met een niet bestaande 'course_id' of als je een string meegeeft in plaats van een integer. <br>
 
 #### Tests GET-requests '/lecturers' & '/lecturers/{lecturer_id}'
 Deze tests zijn praktisch dezelfde tests als voor de Courses maar dan voor de Lecturers. We testen opnieuw naar de juiste statuscodes en datatypes in de responses met het ingeven van juiste en verkeerde data. <br><br>
