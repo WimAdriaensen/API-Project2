@@ -136,6 +136,12 @@ De laatste GET-request is voor '/users', deze geeft een lijst terug met de aange
 ![api-get-users](images/Postman_get_users.png)
 <br><br>
 
+### GET-request 8
+De laatste GET-request is voor '/owner', deze endpoint contacteert de externe API van Github en vraagt er mijn gegevens op van mijn project repository. <br>
+Ik haal hier enkele values uit zoals mijn account naam, de link naar mijn githubaccount en de link naar deze repository. <br>
+![api-get-owner](images/Postman_get_owner.png)
+<br><br>
+
 ## POST-requests
 <br>
 
