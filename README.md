@@ -10,13 +10,64 @@ Zo werk ik met een database voor deze API met een tabel voor de vakken (Courses)
 In de tabel Courses zitten de vakken, in de tabel Lecturers zitten de docenten en in de tabel Lessons worden de vakken aan de docenten gekoppeld en voor welke richting (it_class) deze voorzien is (nog zonder datum en tijd). Ook is er een tabel Users aangemaakt voor authentication.
 <br>
 
-### Extra's 
-#### 2.1 & 2.1.1 - Schrijven van tests voor alle endpoints
+## Extra's 
+### 2.1 & 2.1.1 - Schrijven van tests voor alle endpoints
 Ik heb test geschreven voor al de endpoints van de API zowel voor de GET- als voor de POST-, PUT-, en DELETE-requests. <br>
 ![pytest-tests-completed](images/Pytest_tests.png)
 <br><br>
 
-#### 3.2 - Gebruik van Grafana Cloud
+#### Tests GET-requests '/courses' & '/courses/{course_id}'
+Met deze tests test ik de GET endpoints van 'Courses'. Zo test ik of de juiste statuscodes worden teruggegeven en test ik of de data die ik terugkrijg van het juiste type is. <br>
+Zo moeten de juiste responses status 200 teruggeven, wanneer je data opvraagt die niet bestaat moet hij status 404 geven en wanneer je data van het verkeerde type meegeeft moet hij statuscode 422 teruggeven. <br><br>
+![test-get-courses](images/Test_get_courses.png)
+<br>
+Ook word er getest wanneer je een Course opvraagt met een niet bestaande 'course_id' of als je een string meegeeft in plaats van een integer. <br>
+
+#### Tests GET-requests '/lecturers' & '/lecturers/{lecturer_id}'
+Deze tests zijn praktisch dezelfde tests als voor de Courses maar dan voor de Lecturers. We testen opnieuw naar de juiste statuscodes en datatypes in de responses met het ingeven van juiste en verkeerde data. <br><br>
+![test-get-lecturers](images/Test_get_lecturers.png)
+<br>
+
+#### Tests GET-requests '/lessons' & '/lessons/{lesson_id}'
+Opnieuw doen we dezelfde tests voor de Lesssons en testen we of de juistse statuscodes en juiste datatypes worden teruggegeven in de response. <br><br>
+![test-get-lessons](images/Test_get_lessons.png)
+<br>
+
+#### Test POST-request '/courses'
+Hier testen we bij het maken van een nieuwe Course of hij de juiste statuscode teruggeeft maar ook ofdat hij de juiste values aanmaakt van het juiste type. <br>
+Zo moet de naam van de course een string zijn maar moet er ook een value 'lessons' aangemaakt worden voor deze Course van het type 'list'. <br><br>
+![test-post-course](images/Test_post_course.png)
+<br>
+
+#### Test POST-request '/lecturers'
+Deze test is praktisch dezelfde als voor Courses maar dan voor Lecturers waar we testen naar de juiste statuscode en de juiste aangemaakte datatypes. <br><br>
+![test-post-lecturer](images/Test_post_lecturer.png)
+<br>
+
+#### Test POST-request '/lessons'
+Hierbij testen we bij het maken van een nieuwe lesson met een nieuwe 'it_class' naam en de laatst aangemaakt 'course_id' en 'lecturer_id', ofdat hij de juiste response statuscode teruggeeft en ofdat de data van het juiste type is. <br><br>
+![test-post-lesson](images/Test_post_lesson.png)
+<br>
+
+#### Test PUT-request '/updlesson/{lesson_id}
+Bij deze test nemen we de laatst aangemaakt lesson en veranderen we de naam ervan, we testen dan of de naam van deze lesson juist is doogegeven in de response en we testen natuurlijk ook naar de juiste response statuscode. <br><br>
+![test-put-lesson](images/Test_put_lesson.png)
+<br>
+
+#### Test DELETE-request '/delcourse/{course_id}'
+Met deze tests testen we de DELETE endpoint om Courses te deleten. We deleten de laatst aangemaakte course en controleren of we de juiste statuscode terugkrijgen en de juiste response data (nl. "Course and its lessons are deleted"). <br>
+Ook testen we dat we de juiste responses krijgen wanneer we een course proberen te deleten die niet bestaat of wanneer je een string meegeeft i.p.v. een integer. <br><br>
+![test-delete-course](images/Test_delete_course.png)
+<br>
+
+#### Test DELETE-request '/dellecturer/{lecturer_id}'
+Deze tests komen ook weer overeen met die voor de Courses, maar dan voor Lecturers. <br>
+We deleten hier de laatst aangemaakte Lecturer en controleren of we de correcte response krijgen. We testen ook met een onbestaande lecturer_id en met een string value i.p.v. een integer. <br><br>
+![test-delete-lecturer](images/Test_delete_lecturer.png)
+<br><br><br>
+
+
+### 3.2 - Gebruik van Grafana Cloud
 Ik heb op Grafana een dashboard aangemaakt die data laat zijn die hij opvraagt van mijn API. <br>
 het dashboard ziet er als volgt uit en word ook geupdatet bij veranderingen. <br><br>
 ![grafana-dashboard](images/Grafana_dashboard.png)
@@ -29,7 +80,7 @@ Zo ziet een data source er in detail uit: <br><br>
 <br><br>
 
 
-#### Links
+### Links
 
 | Description | Link |
 | --- | --- |
@@ -148,18 +199,66 @@ link: https://api-wimadriaensen.cloud.okteto.net/docs
 ![api-docs](images/api_docs.png)
 <br>
 
+### Screenshot authentication
+![api-auth](images/api_auth.png)
+<br>
+
 ### Screenshot GET /courses
-![api-docs-courses](images/api_docs_courses.png)
+![api-get-courses](images/api_get_courses.png)
 <br>
 
 ### Screenshot POST /courses
-![api-docs-courses-post](images/api_docs_courses_post.png)
+![api-post-courses](images/api_post_courses.png)
 <br>
 
 ### Screenshot GET /courses/{it_class}
-![api-docs-courses-itclass](images/api_docs_courses_itclass.png)
+![api-get-courses-id](images/api_get_courses_id.png)
 <br>
 
-### Screenshot GET /maker
-![api-docs-maker](images/api_docs_maker.png)
+### Screenshot GET /lecturers
+![api-get-lecturers](images/api_get_lecturers.png)
+<br>
+
+### Screenshot POST /lecturers
+![api-post-lecturers](images/api_post_lecturers.png)
+<br>
+
+### Screenshot GET /lecturers/{lecturer_id}
+![api-get-lecturers-id](images/api_get_lecturers_id.png)
+<br>
+
+### Screenshot GET /lessons
+![api-get-lessons](images/api_get_lessons.png)
+<br>
+
+### Screenshot POST /lessons
+![api-post-lessons](images/api_post_lessons.png)
+<br>
+
+### Screenshot GET /lessons/{lesson_id}
+![api-get-lessons-id](images/api_get_lessons_id.png)
+<br>
+
+### Screenshot PUT /updlesson/{lesson_id)
+![api-put-updlesson-id](images/api_put_updlesson_id.png)
+<br>
+
+### Screenshot DELETE /delcourses/{course_id}
+![api-delete-delcourse-id](images/api_delete_delcourse_id.png)
+<br>
+
+### Screenshot DELETE /dellecturer/{lecturer_id}
+![api-delete-dellecturer-id](images/api_delete_dellecturer_id.png)
+<br>
+
+### Screenshot POST /users
+![api-post-users](images/api_post_users.png)
+<br>
+
+### Screenshot GET /users
+![api-get-users](images/api_get_users.png)
+<br>
+
+### Screenshot GET /users/me
+![api-get-users-me](images/api_get_users_me.png)
 <br>
