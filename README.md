@@ -85,8 +85,9 @@ Zo ziet een data source er in detail uit: <br><br>
 | Description | Link |
 | --- | --- |
 | Hosted API | https://api-wimadriaensen.cloud.okteto.net/ |
-| Hosted front-end | (geen front-end)  |
-| Repository front-end | (geen font-end) |
+| Grafana Dashboard | https://apiproject2.grafana.net/d/go6sUVhVz/api-project-2-dashboard?orgId=1&refresh=5s  |
+<br>
+(Voor het Grafana dashboard zijn er uitnodigings mails verzonden naar Michiel Verboven en Brent Pulmans)
 <br>
 
 # Werking API via Postman
