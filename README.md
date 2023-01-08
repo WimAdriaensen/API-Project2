@@ -83,7 +83,7 @@ Ik communiceer met de Github API om mij naam, Github account en project reposito
 
 
 ### 3.2 - Gebruik van Grafana Cloud
-Ik heb op Grafana een dashboard aangemaakt die data laat zijn die hij opvraagt van mijn API. <br>
+Ik heb op Grafana een dashboard aangemaakt die data laat zien die hij opvraagt van mijn API. <br>
 het dashboard ziet er als volgt uit en word ook geupdatet bij veranderingen. <br><br>
 ![grafana-dashboard](images/Grafana_dashboard.png)
 <br><br>
